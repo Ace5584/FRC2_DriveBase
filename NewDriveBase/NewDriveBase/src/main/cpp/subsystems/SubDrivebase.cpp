@@ -7,16 +7,23 @@
 
 #include "subsystems/SubDriveBase.h"
 #include "commands/CmdDrive.h"
+#include "Constants.h"
 
 SubDriveBase::SubDriveBase() {
-  _srxFrontLeft.reset(new WPI_TalonSRX(1));
-  _srxFrontRight.reset(new WPI_TalonSRX(3));
-  _srxBackLeft.reset(new WPI_TalonSRX(2));
-  _srxBackRight.reset(new WPI_TalonSRX(4));
-  _srxBackLeft->Follow(*_srxFrontLeft);
-  _srxBackRight->Follow(*_srxFrontRight);
+  _spmFrontLeft.reset(new rev::CANSparkMax(SPM_DriveBaseFrontLeft, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+  _spmFrontRight.reset(new rev::CANSparkMax(SPM_DriveBaseFrontRight, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+  _spmBackLeft.reset(new rev::CANSparkMax(SPM_DriveBaseBackLeft, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+  _spmBackRight.reset(new rev::CANSparkMax(SPM_DriveBaseBackRight, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
-  SubDriveBase::DiffDrive.reset(new frc::DifferentialDrive(*_srxFrontLeft, *_srxFrontRight));
+  _spmFrontLeft->RestoreFactoryDefaults();
+  _spmFrontRight->RestoreFactoryDefaults();
+  _spmBackLeft->RestoreFactoryDefaults();
+  _spmBackRight->RestoreFactoryDefaults();
+
+  _spmBackLeft->Follow(*_spmFrontLeft);
+  _spmBackRight->Follow(*_spmFrontRight);
+
+  SubDriveBase::DiffDrive.reset(new frc::DifferentialDrive(*_spmFrontLeft, *_spmFrontRight));
 }
 
 // This method will be called once per scheduler run

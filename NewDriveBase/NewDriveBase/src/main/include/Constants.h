@@ -16,3 +16,14 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+
+enum SPM{
+    SPM_DriveBaseFrontLeft = 1,
+    SPM_DriveBaseBackLeft = 2,
+    SPM_DriveBaseFrontRight = 3,
+    SPM_DriveBaseBackRight = 4,
+    SPM_ShooterLeft = 5,
+    SPM_ShooterRight = 6,
+};
+
+

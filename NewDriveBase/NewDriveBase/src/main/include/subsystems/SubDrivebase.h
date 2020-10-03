@@ -13,6 +13,7 @@
 #include<frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Subsystem.h>
 #include<stdio.h>
+#include <rev/CANSparkMax.h>
 
 class SubDriveBase : public frc2::SubsystemBase {
  public:
@@ -24,10 +25,10 @@ class SubDriveBase : public frc2::SubsystemBase {
 
 
  private:
-  std::shared_ptr<WPI_TalonSRX> _srxFrontLeft;
-  std::shared_ptr<WPI_TalonSRX> _srxFrontRight;
-  std::shared_ptr<WPI_TalonSRX> _srxBackLeft;
-  std::shared_ptr<WPI_TalonSRX> _srxBackRight;
+  std::shared_ptr<rev::CANSparkMax> _spmFrontLeft;
+  std::shared_ptr<rev::CANSparkMax> _spmFrontRight;
+  std::shared_ptr<rev::CANSparkMax> _spmBackLeft;
+  std::shared_ptr<rev::CANSparkMax> _spmBackRight;
   std::unique_ptr<frc::DifferentialDrive>DiffDrive;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
