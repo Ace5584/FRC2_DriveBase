@@ -26,6 +26,11 @@ SubDriveBase::SubDriveBase() {
   SubDriveBase::DiffDrive.reset(new frc::DifferentialDrive(*_spmFrontLeft, *_spmFrontRight));
 }
 
+// Drive function to drive the robot
+void SubDriveBase::Drive(double speed, double rotation, bool squaredInputs){
+  DiffDrive->ArcadeDrive(-speed, rotation, squaredInputs);
+}
+
 // This method will be called once per scheduler run
 void SubDriveBase::Periodic() {
     

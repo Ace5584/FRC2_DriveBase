@@ -12,8 +12,8 @@
 #include<frc/drive/DifferentialDrive.h>
 #include<frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Subsystem.h>
-#include<stdio.h>
 #include <rev/CANSparkMax.h>
+#include<stdio.h>
 
 class SubDriveBase : public frc2::SubsystemBase {
  public:
@@ -21,6 +21,9 @@ class SubDriveBase : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
+
+  void Drive(double speed, double rotation, bool squaredInputs = true);
+
   void Periodic();
 
 
