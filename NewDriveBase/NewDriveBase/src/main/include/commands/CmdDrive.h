@@ -10,6 +10,9 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+#include "Constants.h"
+#include "subsystems/SubDriveBase.h"
+
 /**
  * An example command.
  *
@@ -20,7 +23,7 @@
 class CmdDrive
     : public frc2::CommandHelper<frc2::CommandBase, CmdDrive> {
  public:
-  CmdDrive();
+  CmdDrive(SubDriveBase* drive);
 
   void Initialize() override;
 

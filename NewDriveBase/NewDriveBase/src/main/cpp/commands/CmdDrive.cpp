@@ -7,7 +7,7 @@
 
 #include "commands/CmdDrive.h"
 
-CmdDrive::CmdDrive() {
+CmdDrive::CmdDrive(SubDriveBase* drive) {
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
