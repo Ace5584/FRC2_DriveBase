@@ -9,26 +9,24 @@
 #include "commands/CmdDrive.h"
 #include "Constants.h"
 
-SubDriveBase::SubDriveBase() {
-  _spmFrontLeft.reset(new rev::CANSparkMax(SPM_DriveBaseFrontLeft, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
-  _spmFrontRight.reset(new rev::CANSparkMax(SPM_DriveBaseFrontRight, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
-  _spmBackLeft.reset(new rev::CANSparkMax(SPM_DriveBaseBackLeft, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
-  _spmBackRight.reset(new rev::CANSparkMax(SPM_DriveBaseBackRight, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+SubDriveBase::SubDriveBase()
+    : _spmFrontLeft{SPM_DriveBaseFrontLeft, rev::CANSparkMaxLowLevel::MotorType::kBrushless},
+    _spmFrontRight{SPM_DriveBaseBackRight, rev::CANSparkMaxLowLevel::MotorType::kBrushless}, 
+    _spmBackLeft{SPM_DriveBaseBackLeft, rev::CANSparkMaxLowLevel::MotorType::kBrushless},
+    _spmBackRight{SPM_DriveBaseBackRight, rev::CANSparkMaxLowLevel::MotorType::kBrushless}{
 
-  _spmFrontLeft->RestoreFactoryDefaults();
-  _spmFrontRight->RestoreFactoryDefaults();
-  _spmBackLeft->RestoreFactoryDefaults();
-  _spmBackRight->RestoreFactoryDefaults();
+  _spmFrontRight.RestoreFactoryDefaults();
+  _spmFrontLeft.RestoreFactoryDefaults();
+  _spmBackLeft.RestoreFactoryDefaults();
+  _spmBackRight.RestoreFactoryDefaults();
 
-  _spmBackLeft->Follow(*_spmFrontLeft);
-  _spmBackRight->Follow(*_spmFrontRight);
-
-  SubDriveBase::DiffDrive.reset(new frc::DifferentialDrive(*_spmFrontLeft, *_spmFrontRight));
+  _spmBackLeft.Follow(_spmFrontLeft);
+  _spmBackRight.Follow(_spmFrontRight);
 }
 
 // Drive function to drive the robot
-void SubDriveBase::Drive(double speed, double rotation, bool squaredInputs){
-  DiffDrive->ArcadeDrive(-speed, rotation, squaredInputs);
+void SubDriveBase::Drive(double speed, double rotation){
+  DiffDrive.ArcadeDrive(-speed, rotation);
 }
 
 // This method will be called once per scheduler run

@@ -14,6 +14,7 @@
 #include <frc2/command/Subsystem.h>
 #include <rev/CANSparkMax.h>
 #include<stdio.h>
+#include <frc/SpeedControllerGroup.h>
 
 class SubDriveBase : public frc2::SubsystemBase {
  public:
@@ -22,17 +23,21 @@ class SubDriveBase : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
-  void Drive(double speed, double rotation, bool squaredInputs = true);
+  void Drive(double speed, double rotation);
 
   void Periodic();
 
 
  private:
-  std::shared_ptr<rev::CANSparkMax> _spmFrontLeft;
-  std::shared_ptr<rev::CANSparkMax> _spmFrontRight;
-  std::shared_ptr<rev::CANSparkMax> _spmBackLeft;
-  std::shared_ptr<rev::CANSparkMax> _spmBackRight;
-  std::unique_ptr<frc::DifferentialDrive>DiffDrive;
+  rev::CANSparkMax _spmFrontLeft;
+  rev::CANSparkMax _spmFrontRight;
+  rev::CANSparkMax _spmBackLeft;
+  rev::CANSparkMax _spmBackRight;
+
+  frc::SpeedControllerGroup _spmLeftGroup{_spmFrontLeft, _spmFrontRight};
+  frc::SpeedControllerGroup _spmRightGroup{_spmBackLeft, _spmFrontRight};
+
+  frc::DifferentialDrive DiffDrive{_spmLeftGroup, _spmRightGroup};
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
