@@ -7,10 +7,12 @@
 
 #pragma once
 
+#include <frc/XboxController.h>
 #include <frc2/command/Command.h>
 
 #include "commands/CmdDrive.h"
 #include "subsystems/SubDriveBase.h"
+#include "Constants.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -20,7 +22,7 @@
  * commands, and button mappings) should be declared here.
  */
 class RobotContainer {
- public:
+ public: 
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
@@ -29,6 +31,9 @@ class RobotContainer {
   // The robot's subsystems and commands are defined here...
   SubDriveBase m_subsystem;
   CmdDrive m_autonomousCommand;
+
+  
+  frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 
   void ConfigureButtonBindings();
 };

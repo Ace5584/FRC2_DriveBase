@@ -26,4 +26,8 @@ enum SPM{
     SPM_ShooterRight = 6,
 };
 
+namespace OIConstants {
+    constexpr int kDriverControllerPort = 1;
+}  // namespace OIConstants
+
 
