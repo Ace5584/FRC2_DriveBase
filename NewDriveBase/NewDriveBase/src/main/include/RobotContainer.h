@@ -13,6 +13,7 @@
 #include "commands/CmdDrive.h"
 #include "subsystems/SubDriveBase.h"
 #include "Constants.h"
+#include "commands/CmdDriveDistance.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -29,9 +30,10 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  SubDriveBase m_subsystem;
-  CmdDrive m_autonomousCommand;
+  SubDriveBase m_subsystm;
 
+  CmdDriveDistance m_simpleAuto{AutoConstants::kAutoDriveDistanceInches,
+                             AutoConstants::kAutoDriveSpeed, &m_subsystm};
   
   frc::XboxController m_driverController{OIConstants::kDriverControllerPort};
 

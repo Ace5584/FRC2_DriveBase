@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include<frc2/command/SubsystemBase.h>
-#include<ctre/Phoenix.h>
-#include<frc/drive/DifferentialDrive.h>
-#include<frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/SubsystemBase.h>
+#include <frc/drive/DifferentialDrive.h>
 #include <frc2/command/Subsystem.h>
 #include <rev/CANSparkMax.h>
-#include<stdio.h>
 #include <frc/SpeedControllerGroup.h>
+#include <ctre/Phoenix.h>
+
+#include "Constants.h"
 
 class SubDriveBase : public frc2::SubsystemBase {
  public:
@@ -26,6 +26,10 @@ class SubDriveBase : public frc2::SubsystemBase {
   void Drive(double speed, double rotation);
 
   void Periodic();
+  
+  void ResetEncoder();
+
+  double GetEncoderDistance();
 
 
  private:
@@ -38,6 +42,8 @@ class SubDriveBase : public frc2::SubsystemBase {
   frc::SpeedControllerGroup _spmRightGroup{_spmBackLeft, _spmFrontRight};
 
   frc::DifferentialDrive DiffDrive{_spmLeftGroup, _spmRightGroup};
+
+  ctre::phoenix::motorcontrol::can::TalonSRX m_dollyEncoder;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

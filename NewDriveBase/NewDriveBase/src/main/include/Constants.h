@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <wpi/math>
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -16,6 +18,10 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+
+constexpr int kDollyEncoderPort = 7; // REVISIT: this is a TalonSRX on ROLEY that is shared with another
+                                     // subsystem so we need to do something smarter here (refer to 
+                                     // Utilities/EncoderTalon code in 2020.Roley project)
 
 enum SPM{
     SPM_DriveBaseFrontLeft = 1,
@@ -29,5 +35,16 @@ enum SPM{
 namespace OIConstants {
     constexpr int kDriverControllerPort = 1;
 }  // namespace OIConstants
+
+namespace AutoConstants {
+constexpr double kAutoDriveDistanceInches = 60;
+constexpr double kAutoBackupDistanceInches = 20;
+constexpr double kAutoDriveSpeed = 0.5;
+}  // namespace AutoConstants
+
+constexpr int kDollyEncoderCPR = 4096;
+constexpr double kDollyWheelDiameterInches = 2;
+constexpr double kDollyEncoderDistancePerPulse =
+    (kDollyWheelDiameterInches * wpi::math::pi) / static_cast<double>(kDollyEncoderCPR);
 
 

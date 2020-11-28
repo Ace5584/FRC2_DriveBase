@@ -5,16 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/CmdDrive.h"
+#include "commands/CmdDriveDistance.h"
 
-CmdDrive::CmdDrive(SubDriveBase* subsystem,
-                           std::function<double()> forward,
-                           std::function<double()> rotation)
-    : m_drive{subsystem}, m_forward{forward}, m_rotation{rotation} {
+#include <cmath>
+
+CmdDriveDistance::CmdDriveDistance(double inches, double speed,
+                             SubDriveBase* subsystem)
+    : m_drive(subsystem), m_distance(inches), m_speed(speed) {
   AddRequirements({subsystem});
 }
 
-void CmdDrive::Execute() {
-  m_drive->Drive(m_forward(), m_rotation());
+void CmdDriveDistance::Initialize() {
+  m_drive->Drive(m_speed, 0);
 }
 
+void CmdDriveDistance::End(bool interrupted) { m_drive->Drive(0, 0); }
+
+bool CmdDriveDistance::IsFinished() {
+  return std::abs(m_drive->GetEncoderDistance()) >= m_distance;
+}

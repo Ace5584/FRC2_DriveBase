@@ -10,26 +10,22 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "Constants.h"
-#include "subsystems/SubDriveBase.h"
+#include "subsystems/SubDrivebase.h"
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
-class CmdDrive
-    : public frc2::CommandHelper<frc2::CommandBase, CmdDrive> {
+class CmdDriveDistance
+    : public frc2::CommandHelper<frc2::CommandBase, CmdDriveDistance> {
  public:
-  CmdDrive(SubDriveBase* subsystem, std::function<double()> forward,
-               std::function<double()> rotation);
+  CmdDriveDistance(double inches, double speed, SubDriveBase* subsystem);
 
-  void Execute() override;
+  void Initialize() override;
+
+  void End(bool interrupted) override;
+
+  bool IsFinished() override;
 
  private:
   SubDriveBase* m_drive;
-  std::function<double()> m_forward;
-  std::function<double()> m_rotation;
+  double m_distance;
+  double m_speed;
 };
+
